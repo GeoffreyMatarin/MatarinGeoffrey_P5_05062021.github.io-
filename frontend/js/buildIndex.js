@@ -1,9 +1,8 @@
 allProducts()
 
-
-
-const panier = [];
 const article = [];
+
+
 
 //function qui attend getArticles
 async function allProducts() {
@@ -13,7 +12,7 @@ async function allProducts() {
     for (let i=0;i<articles.length;i++){
 
         article.push(articles[i]);
-        dispayProduct(articles[i],i);
+        dispayProduct(articles[i]);
         
         
     }
@@ -37,9 +36,10 @@ function getArticles(){
 console.log(article)
 console.log(article.length)
 
-function dispayProduct(article,position){
-    const container = document.getElementById('container');
 
+function dispayProduct(article,){
+    const container = document.getElementById('container');
+    
     var section = document.createElement('div') ;
     var productCol = document.createElement('div');
     var card = document.createElement('div');
@@ -54,19 +54,19 @@ function dispayProduct(article,position){
     //ajouts de classes
     section.classList.add('row');
     productCol.classList.add('col');
-    card.classList.add("card", "border-dark" ,"mb-5");
+    card.classList.add("card", "border-dark" ,"mb-5","col-6","mx-auto");
     productImg.classList.add("card-img-top");
     cardBody.classList.add("card-body");
     productName.classList.add("text-center", "mb-5");
     productDesc.classList.add("card-text","text-center");
     productPrice.classList.add("text-center");
-    productFooter.classList.add("card-footer", "text-center")
+    productFooter.classList.add("card-footer", "text-center");
     
-    lienImg.href = "produit.html?${article._id}";
+    lienImg.href = "produit.html?id=" + article._id;;
   
 
     //relier elements au parents
-    container.appendChild(section)
+    container.appendChild(section);
     section.appendChild(productCol);
     productCol.appendChild(card);
     card.appendChild(lienImg);
@@ -82,4 +82,6 @@ function dispayProduct(article,position){
     productPrice.innerHTML = article.price / 100 + ' €';
     productImg.setAttribute("src", article.imageUrl);
     productFooter.innerHTML = "★ ★ ★ ★ ★";
+
 }
+
