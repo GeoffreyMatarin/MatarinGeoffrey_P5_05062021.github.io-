@@ -73,7 +73,7 @@ function getArticles(){
             productImg.classList.add("card-img-top");
             cardBody.classList.add("card-body");
             productName.classList.add("text-center", "mb-5");
-            productDesc.classList.add("card-text","text-center");
+            productDesc.classList.add();
             productPrice.classList.add("text-center");
             productcolor.classList.add('custom-select',"mdb-select","md-form","mb3");
             addBtn.classList.add("bnt", "btn-success", "d-flex","m-auto")
@@ -102,39 +102,66 @@ function getArticles(){
 
             productDesc.innerHTML = teddy.description;
             productName.innerHTML = teddy.name;
-            productPrice.innerHTML = teddy.price / 100 + ' €';
+            productPrice.innerHTML = teddy.price / 100 + '€' ;
             productImg.setAttribute("src", teddy.imageUrl);
             
             titreColorSelect.innerHTML = "Selectionnez la couleur";
-            
-            addBtn.innerHTML = "Ajouter au panier";
-
-            var couleur = [];
             for(let i=0; i < teddy.colors.length; i++){
                 
                 
     
-                couleur.push(teddy.colors[i]);
-                console.log(couleur);
-                var option = document.createElement('option', teddy.colors[i]);
                 
-                productcolor.appendChild(option);
                 
-
+                var option = new Option (teddy.colors[i],teddy.colors[i]);
 
                 
+                productcolor.options.add(option);
                 
-                
-    
     
             }
+
+            addBtn.innerHTML = "Ajouter au panier";
+            addBtn.onclick = function (){
+                let selectedColor = productcolor.value;
+                let choixProduit ={
+                    nameProd : teddy.name,
+                    optionProd : selectedColor,
+                    prixProd : teddy.price / 100 + ' €',
+                    
+                }
+                
+                
+                
+
+               var panier = [];
+                if (localStorage.panier){
+                    
+                    
+                        
+                        
+                        panier.push(choixProduit);
+                        localStorage.setItem("panier", JSON.stringify(panier));
+                        alert("article ajouter au panier");
+                    } 
+                    console.log(panier);  
+               
+            } 
+            
+
+            };
+
+
+            
+            
            
             
       }
 
 
       
-    }
+    
+
+       
 
      
 

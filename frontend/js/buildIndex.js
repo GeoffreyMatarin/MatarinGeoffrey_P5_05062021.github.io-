@@ -37,7 +37,9 @@ console.log(article)
 console.log(article.length)
 
 
+
 function dispayProduct(article,){
+    
     const container = document.getElementById('container');
     
     var section = document.createElement('div') ;
@@ -83,5 +85,7 @@ function dispayProduct(article,){
     productImg.setAttribute("src", article.imageUrl);
     productFooter.innerHTML = "★ ★ ★ ★ ★";
 
+
+    
 }
 
