@@ -77,7 +77,7 @@ function getArticle(){
             productDesc.classList.add();
             productPrice.classList.add("text-center");
             productcolor.classList.add('custom-select',"mdb-select","md-form","mb3");
-            addBtn.classList.add("bnt", "btn-success", "d-flex","m-auto")
+            addBtn.classList.add("bnt", "btn-success", "d-flex",)
            
             
 
@@ -126,19 +126,22 @@ function getArticle(){
                 
                 let selectedColor = productcolor.value;
                 let choixProduit ={
+                    idObjet : id,
                     nameProd : teddy.name,
                     optionProd : selectedColor,
-                    prixProd : teddy.price / 100 + ' €',
+                    prixProd : teddy.price / 100 ,
                     
                 }
                 
                 
                 
 
-                panier = JSON.parse(localStorage.panier);
-                if (panier == null){
+                panier = localStorage.panier;
+                if (panier==null){
                     panier = [];
                     
+                } else{
+                    panier =JSON.parse(panier);
                 }
   
                     panier.push(choixProduit);

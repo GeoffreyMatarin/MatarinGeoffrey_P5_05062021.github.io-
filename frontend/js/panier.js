@@ -1,7 +1,7 @@
 let panier = JSON.parse(localStorage.panier);
 
 
-var produit = [];
+
 const container = document.getElementById("container");
 var titrePanier = document.createElement('h1');
 titrePanier.classList.add("card","col","text-center","p-2", "border-dark");
@@ -32,17 +32,19 @@ if (panier === null){
         var blockInfo = document.createElement('div');
         var colorProd = document.createElement("span");
         var prix = document.createElement('span');
+        var blockBouton = document.createElement('div');
         var deletteBtn = document.createElement('button');
 
         blockPanier.classList.add("row",);
         
-        blockArticle.classList.add("card","col-11","text-center", "border-dark","p-0","m-auto",);
-        nameProduct.classList.add("card-header","col","text-center", "border-dark","m-0","p-0");
+        blockArticle.classList.add("card","col-11","text-center", "border-dark","p-0","mx-auto","mb-4");
+        nameProduct.classList.add("card-header","col","text-center", "border-dark","m-0","py-2");
         containerInfo.classList.add("card-body","container", "text-center")
         blockInfo.classList.add("row","card-body");
         colorProd.classList.add("col-6");
-        prix.classList.add("col-6",);
-        deletteBtn.classList.add( "btn-warning","col-4","m-auto",);
+        prix.classList.add("col-6");
+        blockArticle.classList.add("row")
+        deletteBtn.classList.add( "btn-danger","col","mx-auto", "card-body");
 
         
         
@@ -53,75 +55,137 @@ if (panier === null){
         containerInfo.appendChild(blockInfo);
         blockInfo.appendChild(colorProd);
         blockInfo.appendChild(prix);
-        blockInfo.appendChild(deletteBtn)
+        blockArticle.appendChild(blockBouton)
+        blockBouton.appendChild(deletteBtn)
         
        
         
         
         
         nameProduct.innerText = panier[i].nameProd;
-        colorProd.innerText = "Couleur :" + panier[i].optionProd;
-        prix.innerText = "Prix  =" + panier[i].prixProd;
+        colorProd.innerText = "Couleur sélectionnée : " + panier[i].optionProd;
+        prix.innerText = "Prix  = " + panier[i].prixProd + ' €';
         deletteBtn.innerText = "Supprimer";
         titrePanier.innerText = "Votre panier";
-
-
+       
+        deletteBtn.setAttribute('onclick','supression('+ i + ')');
         
-    }
-    let total = 0;
+    }    
 
+    }
+  
+      function supression(position){
+          panier = JSON.parse(localStorage.getItem("panier"));
+          panier.splice(position,1);
+          localStorage.setItem("panier",JSON.stringify(panier));
+          window.location.reload();
+
+      }
+
+      
+        
+    prixTotal(panier)
+    
+
+            function prixTotal(panier){
+
+            console.log(panier);    
+            const totalProduit = []; 
+               
             for (let i=0; i< panier.length; i++){
-                total = Number(panier[i].prixProd)/100;
-                console.log(total);
+               totalProduit.push(panier[i].prixProd);         
+                 
             }
             
-        
-        
-    
-}
+            let sum = 0;
+            for (let i=0; i< totalProduit.length; i++){
+                sum +=parseInt(totalProduit[i]);
+            }console.log(sum)
+           
+            var blockTotal = document.createElement('div');
+            var titreTotal = document.createElement('h1');
+            var somme = document.createElement('span');
+
+            blockTotal.classList.add("row", "card-body" ,"mb-5");
+            titreTotal.classList.add("col-6", "text-center");
+            somme.classList.add('col-6', "text-center","pt-3");
+
+            blockPanier.appendChild(blockTotal);
+            blockTotal.appendChild(titreTotal);
+            blockTotal.appendChild(somme);
 
         
-            
+            titreTotal.innerText = 'Total du panier :'
+            somme.innerText = sum  + ' €' ;
+        } 
+
+        
+        
 
 
 
 
-
+let products = [];
+let contact;
+let submit = document.getElementById('submit');
 document.getElementById("formEnvoi").addEventListener("submit", function(e) {
     e.preventDefault();
     var erreur;
-    var nom = document.getElementById('nom');
-    var prenom = document.getElementById('prenom');
+    var nom = document.getElementById('nom').value;
+    var prenom = document.getElementById('prenom').value;
     var email = document.getElementById('email');
     var adresse = document.getElementById('adresse');
     var codepostale = document.getElementById('codepostale');
     var ville = document.getElementById('ville');
+    
 
-    if (!ville.value) {
-        erreur = "Veuillez renseigner votre ville";
+    for(let i =0;i < panier.length; i++){
+        products.push(panier.idObjet);
     }
-    if (!codepostale.value){
-        erreur = "Veillez renseigner votre code postale"
-    }
-    if (!adresse.value) {
-        erreur = "Veuillez renseigner votre adresse";
-    }
-    if (!email.value) {
-        erreur = "Veuillez renseigner votre adresse email";
-    }
+    contact ={
+        firstName : document.getElementById("nom").value,
+        lastName : document.getElementById("prenom").value,
+        adresse : document.getElementById("adresse").value,
+        city : document.getElementById("ville").value,
+        email : document.getElementById("email").value,
 
-    if (!prenom.value) {
-        erreur = "Veuillez renseigner votre prenom";
     }
-    if (!nom.value) {
-        erreur = "Veuillez renseigner votre nom";
-    }
-
+   
     if (erreur){
         e.preventDefault();
-        document.getElementById("erreur").innerHTML = erreur;
+        document.getElementById("erreur").innerText = erreur;
         return false;
     }else{ 
+        
      alert("commande prise en compte");
     }
+    
+    postOrder();
+
+    function postOrder(){
+    if(panier.length > 0){
+       return fetch("http://localhost:3000/api/teddies/order",{
+            method: "POST",
+            
+            headers: {
+                'accept': 'application/json',
+                'content-type' :  'application/json'
+            },
+            body: JSON.stringify({contact, products})
+
+        })
+        .then((reponse) => {
+            return reponse.json()
+        })
+        .then((data) => {
+            return data
+            console.log(data);
+        })
+        
+       
+       
+    }
+    
+}
+
 });

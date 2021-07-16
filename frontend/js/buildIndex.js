@@ -16,6 +16,7 @@ async function allProducts() {
         
         
     }
+    console.log(article)
 }
 //envoi requette
 function getArticles(){
