@@ -1,9 +1,12 @@
-let panier = JSON.parse(localStorage.getItem('panier'));
-console.log(panier);
+let panier = JSON.parse(localStorage.panier);
+
 
 var produit = [];
 const container = document.getElementById("container");
-if (panier === null || panier == 0){
+var titrePanier = document.createElement('h1');
+titrePanier.classList.add("card","col","text-center","p-2", "border-dark");
+container.appendChild(titrePanier);
+if (panier === null){
 
     var blockPanier = document.createElement("div");
     var panierVide = document.createElement("p");
@@ -11,50 +14,74 @@ if (panier === null || panier == 0){
     panierVide.classList.add("card-text","text-center");
 
     container.appendChild(blockPanier);
-    blockPanier.appendChild(panierVide);
+    
 
     blockPanier.innerHTML = "aucun produits dans le panier";
 
 } else {
-    let panierRempli = [];
-    let objet = JSON.parse(localStorage.getItem('panier'))
-    console.log(objet)
+    
+    
     for (i = 0; i < panier.length; i++){
 
 
         var blockPanier = document.createElement('div');
+        
+        var blockArticle = document.createElement("div");
         var nameProduct = document.createElement("h2");
+        var containerInfo =document.createElement("div");
         var blockInfo = document.createElement('div');
         var colorProd = document.createElement("span");
         var prix = document.createElement('span');
+        var deletteBtn = document.createElement('button');
 
-        blockPanier.classList.add();
-        nameProduct.classList.add("text-center");
-        colorProd.classList.add("card-text");
-        prix.classList.add("card-text");
+        blockPanier.classList.add("row",);
+        
+        blockArticle.classList.add("card","col-11","text-center", "border-dark","p-0","m-auto",);
+        nameProduct.classList.add("card-header","col","text-center", "border-dark","m-0","p-0");
+        containerInfo.classList.add("card-body","container", "text-center")
+        blockInfo.classList.add("row","card-body");
+        colorProd.classList.add("col-6");
+        prix.classList.add("col-6",);
+        deletteBtn.classList.add( "btn-warning","col-4","m-auto",);
 
+        
+        
         container.appendChild(blockPanier);
-        blockPanier.appendChild(nameProduct);
-        blockPanier.appendChild(blockInfo);
+        blockPanier.appendChild(blockArticle);
+        blockArticle.appendChild(nameProduct)
+        blockArticle.appendChild(containerInfo);
+        containerInfo.appendChild(blockInfo);
         blockInfo.appendChild(colorProd);
         blockInfo.appendChild(prix);
-        function buildpanier(object){
-            let name = nameProd.value;
-            let couleur = optionProd.value;
-            let prixObj = prixProd.value;
-            console.log(name);
-        }
+        blockInfo.appendChild(deletteBtn)
+        
+       
         
         
-        nameProduct.innerHTML = panier.nameProd;
-        colorProd.innerHTML = panier.optionProd;
-        prix.innerHTML = panier.prixProd;
+        
+        nameProduct.innerText = panier[i].nameProd;
+        colorProd.innerText = "Couleur :" + panier[i].optionProd;
+        prix.innerText = "Prix  =" + panier[i].prixProd;
+        deletteBtn.innerText = "Supprimer";
+        titrePanier.innerText = "Votre panier";
 
 
         
     }
+    let total = 0;
+
+            for (let i=0; i< panier.length; i++){
+                total = Number(panier[i].prixProd)/100;
+                console.log(total);
+            }
+            
+        
+        
     
 }
+
+        
+            
 
 
 

@@ -41,22 +41,22 @@
           </nav>
         </header>
         <div id="main">
-          <div id="container">
+          <div id="container" class="container">
 
           </div>
 
         </div>
-        <section class="formulaire">
-          <h2>Formulaire d'envoi</h2>
-          <div class="formulaire-real">
-              <form id="formEnvoi">
-                  <input type="text" placeholder="Nom" name="nom" id="nom"><br>
-                  <input type="text" placeholder="Prenom" name="prenom" id="prenom"><br>
-                  <input type="email" placeholder="Adresse Email" name="email" id="email"><br>
-                  <input type="text" placeholder="Adresse de livraison" name="adresse" id="adresse"><br>
-                  <input type="text" placeholder="code postale" name="codepostal" id="codepostale"><br>
-                  <input type="text" placeholder="Ville" name="ville" id="ville"><br>
-                  <input type="submit" value="Inscription"><br>
+        <section class="formulaire row m-auto">
+          <h2 class="col-12 text-center p-0">Formulaire d'envoi</h2>
+          <div class="col formulaire-real m-auto p-0">
+              <form id="formEnvoi" class="col m-auto" >
+                  <input class="col-8 text-center " type="text" placeholder="Nom" name="nom" id="nom"><br>
+                  <input class="col-8 text-center" type="text" placeholder="Prenom" name="prenom" id="prenom"><br>
+                  <input class="col-8 text-center" type="email" placeholder="Adresse Email" name="email" id="email"><br>
+                  <input class="col-8 text-center" type="text" placeholder="Adresse de livraison" name="adresse" id="adresse"><br>
+                  <input class="col-8 text-center" type="text" placeholder="code postale" name="codepostal" id="codepostale"><br>
+                  <input class="col-8 text-center" type="text" placeholder="Ville" name="ville" id="ville"><br>
+                  <input class="col-8 text-center" type="submit" value="Inscription"><br>
               </form>
               <p style="color: red;" id="erreur"></p>
           </div>

@@ -1,25 +1,27 @@
-allProducts()
+    let params = new URL (document.location).searchParams;
+    let id = params.get("id");
+
+    product()
 
 const article = [];
 
 
 
 //function qui attend getArticles
-async function allProducts() {
+async function product() {
 
-    const articles = await getArticles();
+    const article = await getArticle();
 
-    for (let i=0;i<articles.length;i++){
 
-        article.push(articles[i]);
-        detailProd(articles[i]);
+        
+        detailProd(article);
         
         
-    }
+    
 }
 //envoi requette
-function getArticles(){
-    return fetch("http://localhost:3000/api/teddies")
+function getArticle(){
+    return fetch("http://localhost:3000/api/teddies/" + id)
     .then((reponse) => {
         return reponse.json()
     })
@@ -34,14 +36,13 @@ function getArticles(){
 
 
 
-    let params = new URL (document.location).searchParams;
-    let id = params.get("id");
+    
     
     
     function detailProd(teddy){ 
         
 
-        if (teddy._id == id){
+        
             let imgArt = teddy.imageUrl;
             let nameArt = teddy.name;
             let priceArt = teddy.price;
@@ -122,6 +123,7 @@ function getArticles(){
 
             addBtn.innerHTML = "Ajouter au panier";
             addBtn.onclick = function (){
+                
                 let selectedColor = productcolor.value;
                 let choixProduit ={
                     nameProd : teddy.name,
@@ -133,19 +135,19 @@ function getArticles(){
                 
                 
 
-               var panier = [];
-                if (localStorage.panier){
+                panier = JSON.parse(localStorage.panier);
+                if (panier == null){
+                    panier = [];
                     
+                }
+  
+                    panier.push(choixProduit);
+                    localStorage.setItem("panier", JSON.stringify(panier));
+                    alert("article ajouter au panier");
                     
-                        
-                        
-                        panier.push(choixProduit);
-                        localStorage.setItem("panier", JSON.stringify(panier));
-                        alert("article ajouter au panier");
-                    } 
                     console.log(panier);  
                
-            } 
+            
             
 
             };
