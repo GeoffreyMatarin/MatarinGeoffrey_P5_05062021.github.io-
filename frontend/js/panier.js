@@ -140,52 +140,69 @@ document.getElementById("formEnvoi").addEventListener("submit", function(e) {
     
 
     for(let i =0;i < panier.length; i++){
-        products.push(panier.idObjet);
+        
+        products.push(panier[i].idObjet);
+        
+        
+        
+        
+        
     }
+
+    
+       
+        
+
+    
+    console.log(products)
     contact ={
         firstName : document.getElementById("nom").value,
         lastName : document.getElementById("prenom").value,
-        adresse : document.getElementById("adresse").value,
+        address : document.getElementById("adresse").value,
         city : document.getElementById("ville").value,
         email : document.getElementById("email").value,
 
     }
-   
-    if (erreur){
-        e.preventDefault();
-        document.getElementById("erreur").innerText = erreur;
-        return false;
-    }else{ 
-        
-     alert("commande prise en compte");
-    }
     
-    postOrder();
+    
+    
+    
+    
+    
+    
+    
 
-    function postOrder(){
+    
     if(panier.length > 0){
+        const toPost = JSON.stringify({contact, products});
+        console.log(toPost);
        return fetch("http://localhost:3000/api/teddies/order",{
             method: "POST",
             
-            headers: {
-                'accept': 'application/json',
-                'content-type' :  'application/json'
-            },
-            body: JSON.stringify({contact, products})
+            headers: 
+                
+                {'content-type' :  'application/json; charset=utf-8'},
+            
+            body: toPost
 
         })
         .then((reponse) => {
             return reponse.json()
+            
         })
-        .then((data) => {
-            return data
-            console.log(data);
-        })
-        
-       
-       
-    }
-    
+         .then (function(reponse){
+             let orderInfos={
+                userName :contact.firstName,
+                orderId: reponse.orderId,
+             };
+             console.log(orderInfos);
+             localStorage.setItem("orderInfos",JSON.stringify(orderInfos));
+             window.location.replace("./confirmation.html");
+         })
+            
+    };
+         
 }
-
-});
+    
+    
+);

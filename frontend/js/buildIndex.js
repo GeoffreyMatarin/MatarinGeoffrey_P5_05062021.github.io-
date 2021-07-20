@@ -16,7 +16,7 @@ async function allProducts() {
         
         
     }
-    console.log(article)
+    
 }
 //envoi requette
 function getArticles(){
@@ -24,12 +24,7 @@ function getArticles(){
     .then((reponse) => {
         return reponse.json()
     })
-    .then((data) => {
-        return data
-    })
-    .catch((error) => {
-        alert("une erreur est survenue lors de la requête")
-    })
+
 };
 
 
@@ -57,8 +52,8 @@ function dispayProduct(article,){
     //ajouts de classes
     section.classList.add('row');
     productCol.classList.add('col');
-    card.classList.add("card", "border-dark" ,"mb-5","col-6","mx-auto");
-    productImg.classList.add("card-img-top");
+    card.classList.add("card", "border-dark" ,"mb-5","col-6","mx-auto", "p-0");
+    productImg.classList.add("card-img-top" ,'m-0', 'p-0');
     cardBody.classList.add("card-body");
     productName.classList.add("text-center", "mb-5");
     productDesc.classList.add("card-text","text-center");
@@ -82,7 +77,7 @@ function dispayProduct(article,){
 
     productDesc.innerHTML = article.description;
     productName.innerHTML = article.name;
-    productPrice.innerHTML = article.price / 100 + ' €';
+    productPrice.innerHTML = article.price /100 + '€' ;
     productImg.setAttribute("src", article.imageUrl);
     productFooter.innerHTML = "★ ★ ★ ★ ★";
 
