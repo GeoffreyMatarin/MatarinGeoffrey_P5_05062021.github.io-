@@ -6,10 +6,10 @@ const panier = JSON.parse(jsonPanier)
 
 
 
-prixTotal(panier)
+confirmDisplay(panier)
     
 
-function prixTotal(panier){
+function confirmDisplay(panier){
 
    
 const totalProduit = []; 
