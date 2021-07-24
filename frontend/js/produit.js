@@ -25,23 +25,13 @@ function getArticle(){
     .then((reponse) => {
         return reponse.json()
     })
-    .then((data) => {
-        return data
-    })
     .catch((error) => {
         alert("une erreur est survenue lors de la requête")
     })
+   
 };
-     
-
-
-
-    
-    
-    
+  
     function detailProd(teddy){ 
-        
-
         
             let imgArt = teddy.imageUrl;
             let nameArt = teddy.name;
@@ -68,21 +58,16 @@ function getArticle(){
             var addBtn = document.createElement('button')
 
 
-            section.classList.add('row');
+            section.classList.add('row','m-0');
             productCol.classList.add('col');
-            card.classList.add("card", "border-dark" ,"mb-5","col-6","mx-auto");
-            productImg.classList.add("card-img-top");
+            card.classList.add("card", "border-dark" ,"mb-5","col-6","mx-auto","p-0");
+            productImg.classList.add("card-img-top", "m-0");
             cardBody.classList.add("card-body");
             productName.classList.add("text-center", "mb-5");
             productDesc.classList.add();
             productPrice.classList.add("text-center");
             productcolor.classList.add('custom-select',"mdb-select","md-form","mb3");
-            addBtn.classList.add("bnt", "btn-success", "d-flex",)
-           
-            
-
-            
-
+            addBtn.classList.add("bnt", "btn-success", "d-flex","mx-auto");
 
             container.appendChild(section);
             section.appendChild(productCol);
@@ -96,10 +81,7 @@ function getArticle(){
             cardBody.appendChild(colorSelector)
             colorSelector.appendChild(titreColorSelect)
             colorSelector.appendChild(productcolor)
-            
             cardBody.appendChild(addBtn)
-            
-            
 
             productDesc.innerHTML = teddy.description;
             productName.innerHTML = teddy.name;
@@ -108,9 +90,6 @@ function getArticle(){
             
             titreColorSelect.innerHTML = "Selectionnez la couleur";
             for(let i=0; i < teddy.colors.length; i++){
-                
-                
-    
                 
                 
                 var option = new Option (teddy.colors[i],teddy.colors[i]);
@@ -133,8 +112,6 @@ function getArticle(){
                     
                 }
                 
-                
-                
 
                 panier = localStorage.panier;
                 if (panier==null){
@@ -142,23 +119,12 @@ function getArticle(){
                     
                 } else{
                     panier =JSON.parse(panier);
-                }
-  
-                    panier.push(choixProduit);
-                    localStorage.setItem("panier", JSON.stringify(panier));
-                    alert("article ajouter au panier");
-                    
-                    console.log(panier);  
-               
-            
-            
-
-            };
-
-
-            
-            
-           
+                    }
+    
+                        panier.push(choixProduit);
+                        localStorage.setItem("panier", JSON.stringify(panier));
+                        alert("article ajouter au panier");      
+            };   
             
       }
 

@@ -4,15 +4,14 @@ const orderInfos = JSON.parse(jsonorderInfos);
 const jsonPanier = localStorage.getItem("panier");
 const panier = JSON.parse(jsonPanier)
 
-console.log(orderInfos);
-console.log(panier);
+
 
 prixTotal(panier)
     
 
 function prixTotal(panier){
 
-console.log(panier);    
+   
 const totalProduit = []; 
    
 for (let i=0; i< panier.length; i++){
@@ -23,7 +22,7 @@ for (let i=0; i< panier.length; i++){
 let sum = 0;
 for (let i=0; i< totalProduit.length; i++){
     sum +=parseInt(totalProduit[i]);
-}console.log(sum)
+}
   
 
 
@@ -64,7 +63,7 @@ recapTwo.classList.add('col-12','text-center');
 goodBye.classList.add('col-12','text-center','p-4');
 
 
-messValid.innerText = "Votre commande est validée Mr/Mme " + orderInfos.userName + ".";
+messValid.innerText = "Votre commande est validée " + orderInfos.userName + ".";
 messOne.innerText = "Notre équipe va traiter la commande dans les plus bref delais. "
 messTwo.innerText = "Merci de nous faire confiance pour vos achats ! "
 
@@ -74,3 +73,5 @@ recapTwo.innerText = "Prix total TTC : " + sum + ' €.';
 goodBye.innerText = "A bientot sur orinoco et ses annexes ! "
 
 }
+
+localStorage.clear();

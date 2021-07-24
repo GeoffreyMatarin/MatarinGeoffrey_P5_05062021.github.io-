@@ -6,7 +6,7 @@ const container = document.getElementById("container");
 var titrePanier = document.createElement('h1');
 titrePanier.classList.add("card","col","text-center","p-2", "border-dark");
 container.appendChild(titrePanier);
-if (panier === null){
+if (panier == 0){
 
     var blockPanier = document.createElement("div");
     var panierVide = document.createElement("p");
@@ -80,16 +80,15 @@ if (panier === null){
           localStorage.setItem("panier",JSON.stringify(panier));
           window.location.reload();
 
-      }
+      };
 
       
         
     prixTotal(panier)
     
 
-            function prixTotal(panier){
-
-            console.log(panier);    
+    function prixTotal(panier){
+   
             const totalProduit = []; 
                
             for (let i=0; i< panier.length; i++){
@@ -100,13 +99,13 @@ if (panier === null){
             let sum = 0;
             for (let i=0; i< totalProduit.length; i++){
                 sum +=parseInt(totalProduit[i]);
-            }console.log(sum)
+            }
            
             var blockTotal = document.createElement('div');
             var titreTotal = document.createElement('h1');
             var somme = document.createElement('span');
 
-            blockTotal.classList.add("row", "card-body" ,"mb-5");
+            blockTotal.classList.add("row", "card-body" ,"mx-5","my-0");
             titreTotal.classList.add("col-6", "text-center");
             somme.classList.add('col-6', "text-center","pt-3");
 
@@ -154,7 +153,7 @@ document.getElementById("formEnvoi").addEventListener("submit", function(e) {
         
 
     
-    console.log(products)
+    
     contact ={
         firstName : document.getElementById("nom").value,
         lastName : document.getElementById("prenom").value,
@@ -192,13 +191,16 @@ document.getElementById("formEnvoi").addEventListener("submit", function(e) {
         })
          .then (function(reponse){
              let orderInfos={
-                userName :contact.firstName,
+                userName :contact.lastName,
                 orderId: reponse.orderId,
              };
              console.log(orderInfos);
              localStorage.setItem("orderInfos",JSON.stringify(orderInfos));
              window.location.replace("./confirmation.html");
          })
+         .catch((error) => {
+            alert("une erreur est survenue lors de la requête")
+        })
             
     };
          
