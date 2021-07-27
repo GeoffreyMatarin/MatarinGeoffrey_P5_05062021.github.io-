@@ -27,7 +27,7 @@ function getArticles(){
 
 };
 
-
+// fonction qui crée et rempli les blocs d articles
 function dispayProduct(article,){
     
     const container = document.getElementById('container');
@@ -55,6 +55,7 @@ function dispayProduct(article,){
     productPrice.classList.add("text-center");
     productFooter.classList.add("card-footer", "text-center");
     
+    //lien pour envoyer sur la page produit avec le produit selectionné
     lienCard.href = "produit.html?id=" + article._id;;
   
 
@@ -70,6 +71,7 @@ function dispayProduct(article,){
     cardBody.appendChild(productPrice);
     card.appendChild(productFooter);
 
+    //implementation des données dans la page;
     productDesc.innerHTML = article.description;
     productName.innerHTML = article.name;
     productPrice.innerHTML = article.price /100 + '€' ;
